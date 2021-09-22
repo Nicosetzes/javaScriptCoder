@@ -1,0 +1,136 @@
+*, ::after, ::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+button {
+    background-color: #e2e0e7;
+    border-radius: 10px;
+    display: flex;
+    margin: 1em auto;
+    padding: 1em 3em;
+    width: 80%;
+    .donation {
+        font-size: 1em;
+        position: relative;
+        &::after {
+            content: url(../media/cart.svg);
+            position: absolute;
+            right: -1.75em;
+            top: -0.2em; 
+        }
+    }
+}
+
+.columns {
+    column-count: 3;
+	column-gap: 5em;
+	column-rule: 1px solid #ccc;
+	column-width: 350px;
+}
+
+#containerOne {
+    align-items: center;
+    background-color: rgb(160, 231, 224);
+    display: flex;
+    justify-content: center;
+    margin: 1em 1em;
+    min-height: 100px;
+    #message {
+        align-items: center;
+        display: flex;
+        font-size: 1em;
+        justify-content: center;
+        position: relative;
+        &::after {
+            content: url(../media/money.svg);
+            font-size: 1em;
+            position: absolute;
+            right: -1.75em;
+            top: -0.2em;
+        }
+    }
+}
+
+#mainContent {
+    display: flex;
+    flex-direction: row;
+    margin: 1em 1em;
+    #containerTwo {
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+        min-height: 100px;
+        max-width: 75%;
+        .articleOne {
+            background-color: rgb(243, 226, 149);
+            padding: 2em 3em;
+        }
+        .articleTwo {
+            background-color: rgb(218, 213, 193);
+            padding: 2em 3em;
+        }
+        .articleThree {
+            background-color: rgb(212, 221, 201);
+            padding: 2em 3em;
+        }
+    }
+    
+    #containerThree {
+        align-items: center;
+        background-color: #d9e5ee;
+        display: flex;
+        flex-flow: column;
+        justify-content: start;
+        width: 25%;
+        padding: 2em 1em;
+        .form {
+            align-items: center;
+            border: black 1px solid;
+            display: flex;
+            flex-direction: column;
+            margin: 2em 0;
+            padding: 1em;
+            .extraInfo {
+                margin-bottom: 2em
+            }
+            p {
+                line-height: 1.5em;
+                text-align:center;
+            }
+        }
+        .information {
+            background-color: rgb(184, 229, 255);
+            border-radius: 10px;
+            width: 95%;
+            ul {
+                align-items: center;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                padding: 1em 0.5em;
+                li {
+                    margin: 1em 0;
+                }
+            }
+        }
+    }
+}
+
+h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1em;
+    text-align: center;
+    text-decoration: underline;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.mainText {
+    font-size: 1.125rem;
+    line-height: 2;
+}
