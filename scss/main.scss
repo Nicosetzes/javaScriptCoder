@@ -94,11 +94,23 @@ button {
             margin: 2em 0;
             padding: 1em;
             .extraInfo {
-                margin-bottom: 2em
+                margin-bottom: 2em;
+            }
+            a {
+                color: crimson;
+                text-decoration: none;
             }
             p {
                 line-height: 1.5em;
+                margin: 0.5em 0;
                 text-align:center;
+            }
+            #submitAndReset {
+                margin: 1em 0;
+                input {
+                    margin: 0 0.5em;
+                    padding: 0.5em 1em;
+                }
             }
         }
         .information {

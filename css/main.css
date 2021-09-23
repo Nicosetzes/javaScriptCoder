@@ -157,9 +157,24 @@ button .donation::after {
   margin-bottom: 2em;
 }
 
+#mainContent #containerThree .form a {
+  color: crimson;
+  text-decoration: none;
+}
+
 #mainContent #containerThree .form p {
   line-height: 1.5em;
+  margin: 0.5em 0;
   text-align: center;
+}
+
+#mainContent #containerThree .form #submitAndReset {
+  margin: 1em 0;
+}
+
+#mainContent #containerThree .form #submitAndReset input {
+  margin: 0 0.5em;
+  padding: 0.5em 1em;
 }
 
 #mainContent #containerThree .information {

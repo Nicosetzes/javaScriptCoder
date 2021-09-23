@@ -1,11 +1,11 @@
 // Incorporo animaciones. Pruebo a realizarlas sobre el ID message:
 
-$("#message").fadeOut(2500 , () => {
+$("#message").fadeOut(2500, () => {
     $("#message").fadeIn(2500)
-                 .delay(2000)
-                 .css("color" , "blue")
-                 .fadeOut(2500)
-                 .fadeIn(2500)
+        .delay(2000)
+        .css("color", "blue")
+        .fadeOut(2500)
+        .fadeIn(2500)
 })
 
 // Declaración de arrays. Utilizo let para permitir que cambie su valor (debido al uso de localStorage)
@@ -20,13 +20,13 @@ $("#users").append(`-`)  // Escribo el contenido de esa linea de HTML, el valor 
 
 // Chequeo el localStorage, en caso de haber algo en la memoria ya lo inyecto en el HTML (luego de reconvertirlo del formato JSON si es necesario).
 
-if(localStorage.donationsNumber != null){
-    donationsNumber = JSON.parse(localStorage.donationsNumber) 
-    $("#sum").html(donationsNumber.length) 
+if (localStorage.donationsNumber != null) {
+    donationsNumber = JSON.parse(localStorage.donationsNumber)
+    $("#sum").html(donationsNumber.length)
 }
 
-if(localStorage.donationsUsersList != null){
-    donationsUsersList = JSON.parse(localStorage.donationsUsersList) 
+if (localStorage.donationsUsersList != null) {
+    donationsUsersList = JSON.parse(localStorage.donationsUsersList)
     $("#users").html(donationsUsersList)
 }
 
@@ -48,7 +48,7 @@ class Story {
 
         document.getElementById("form").classList.add("form")
 
-        $("#form").html( `<div class="extraInfo">
+        $("#form").html(`<div class="extraInfo">
                                                         <p>El cuento seleccionado es <span class="italic">${story.title}</span>. Le proporcionamos información extra acerca del mismo:</p>
                                                         <p><b>Autor</b>: ${story.author}</p>
                                                         <p><b>Cantidad de palabras</b>: ${story.length}</p>
@@ -56,22 +56,80 @@ class Story {
                                                      </div>
                                                      <p>Agradecido por su intención de contribuir por <span class="italic">${story.title}</span>. ¿Cuál es tu nombre?</p>
                                                      <input id="name" class="formItem" type="text">
+                                                     <p>Actualmente, puede contribuir a través de la plataforma Mercado Pago.</p>
                                                      <p>Estimado usuario, ingrese la cantidad a donar. ¡Cualquier contribución es bienvenida!:</p>
                                                      <input id="amount" class="formItem" type="text">
-                                                     <input type="reset"><input type="submit">`)
+                                                     <div id="submitAndReset"><input type="reset"><input type="submit"></div>
+                                                     <p id="linkMercadoPago"></p>`)
 
     }
+
 }
+
+// Declaro una función llamada payment, que se ejecutará en la linea 148. Con esta función realizo la llamada AJAX e utilizo la api de mercadopago para generar un link de pago. 
+
+payment = (amount) => {
+
+    // Utilizo la api de Mercado Pago para procesar pagos en mis sitios (las donaciones)
+
+    // Primero, defino una constante llamada donation, que será un objeto. Ella contendrá el valor de la donación (en su propiedad price).
+
+    const donation = {
+        quantity: 1,
+        price: amount
+    }
+
+    const donationList = [donation];   // Luego creo un array llamado donationList, que contendrá el objeto donation.
+
+    // Utilizo el método de array .map() para recorrer el array y retornar las propiedades requeridas por mercadopago. Me aseguro de que price y quantity estén presentes.
+
+    const mercadoPagoDonations = donationList.map(x => {
+        return {
+            "title": "Donación",
+            "description": "",
+            "picture_url": "",
+            "category_id": "",
+            "quantity": x.quantity,
+            "currency_id": "ARS",
+            "unit_price": x.price
+        }
+    })
+
+    // Guardo en una constante la donación a realizar:
+
+    const element = { "items": mercadoPagoDonations }
+
+    // Declaro los headers de la llamada AJAX en formato Jquery.
+
+    $.ajaxSetup({
+        headers: {
+            'Authorization': 'Bearer TEST-1051685759572271-092221-2f4ba1fef5215e2eff5d87c2c4764924-169071117',
+            'Content-Type': 'application/json'
+        }
+    });
+
+    // Realizo la llamada POST en formato Jquery.
+
+    $.post("https://api.mercadopago.com/checkout/preferences", JSON.stringify(element), (respuesta, status) => {
+
+        if (status === "success") {
+
+            const donationLink = respuesta.init_point   // Guardo la propiedad init_point de la respuesta del POST en una constante llamada donationLink (es el link de mercadopago)
+
+            $("#linkMercadoPago").html(`<a href="${donationLink}" target="_blank">Presione aquí para abonar por Mercado Pago</a>`) // Lo hago aparecer en el html
+        }
+    })
+}
+
+// Ahora toca escribir el Js correspondiente al evento asociado al envío del formulario (y su función callback)
 
 let myForm = $("#form") // Accedo medianto DOM al formulario y lo guardo en la variable myForm
 
-myForm.on("submit",  function sendForm(event) {
+myForm.on("submit", function sendForm(event) {
 
     event.preventDefault(); // Evito que al enviar el form este se comporte por defecto, osea que recargue la página.
 
     let user = $("#name").val()  // Almaceno el valor del input name dentro de una variable llamada user. Utilizo el método .val() de Jquery
-
-    console.log(user)
 
     donationsNumber.push(user)  // Agrego el valor del form (user) al array donationsNumber.
 
@@ -84,6 +142,10 @@ myForm.on("submit",  function sendForm(event) {
     localStorage.donationsUsersList = JSON.stringify(donationsUsersList) // Defino un elemento dentro del localStorage, que será el array donationsUsersList pero parseado.
 
     $("#users").html(donationsUsersList)  // Lo inyecto en el HTML
+
+    let value = Number($("#amount").val()); // Almaceno el valor del input amount dentro de una variable llamada value. Utilizo el método .val() de Jquery
+
+    payment(value) // Ejecuto la función payment(), a la que le paso como parámetro el value obtenido en la linea anterior (monto a donar por el usuario).
 
 })
 
@@ -161,7 +223,7 @@ const shortStoryThree = new Story("Fuera de tiempo", "Nicolás Setzes", 356, 202
                                                                                     </div>
                                                                                     </article>`)
 
-const shortStories = [shortStoryOne , shortStoryTwo , shortStoryThree]  // Defino un array que contendrá los cuentos (stories) completos
+const shortStories = [shortStoryOne, shortStoryTwo, shortStoryThree]  // Defino un array que contendrá los cuentos (stories) completos
 
 // Recorro el array con el uso del método forEach
 
@@ -174,3 +236,5 @@ shortStories.forEach(story => {
 // Utilizo DOM para añadir los articles (conteniendo los cuentos) al HTML. 
 
 $("#containerTwo").append(accumulator)
+
+
