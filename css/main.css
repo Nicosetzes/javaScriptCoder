@@ -6,6 +6,26 @@
   list-style: none;
 }
 
+.bold {
+  font-weight: bold;
+}
+
+h3 {
+  font-size: 1.25rem;
+  margin-bottom: 1em;
+  text-align: center;
+  text-decoration: underline;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.mainText {
+  font-size: 1.125rem;
+  line-height: 2;
+}
+
 button {
   background-color: #e2e0e7;
   border-radius: 10px;
@@ -51,7 +71,6 @@ button .donation::after {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  margin: 1em 1em;
   min-height: 100px;
 }
 
@@ -85,10 +104,10 @@ button .donation::after {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  margin: 1em 1em;
 }
 
 #mainContent #containerTwo {
+  background-color: #f3e295;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -96,25 +115,41 @@ button .donation::after {
   -webkit-box-direction: normal;
       -ms-flex-flow: column;
           flex-flow: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
   min-height: 100px;
-  max-width: 75%;
+  padding: 2em 3em;
+  width: 70%;
 }
 
-#mainContent #containerTwo .articleOne {
+#mainContent #containerTwo #labelContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin: 0 auto;
+  width: 40%;
+}
+
+#mainContent #containerTwo #labelContainer .selectTitle {
+  font-size: 3rem;
+  margin: 1em auto 0.5em auto;
+}
+
+#mainContent #containerTwo #labelContainer #selectStories {
+  font-size: 1.25rem;
+  margin: 0 auto;
+  width: 35%;
+}
+
+#mainContent #containerTwo .shortStory {
   background-color: #f3e295;
-  padding: 2em 3em;
-}
-
-#mainContent #containerTwo .articleTwo {
-  background-color: #dad5c1;
-  padding: 2em 3em;
-}
-
-#mainContent #containerTwo .articleThree {
-  background-color: #d4ddc9;
   padding: 2em 3em;
 }
 
@@ -133,8 +168,26 @@ button .donation::after {
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: start;
-  width: 25%;
-  padding: 2em 1em;
+  width: 30%;
+  padding: 1em 1em 0 1em;
+}
+
+#mainContent #containerThree .buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  width: 100%;
+}
+
+#mainContent #containerThree .buttons button {
+  display: inline-block;
+  width: 40%;
 }
 
 #mainContent #containerThree .form {
@@ -149,12 +202,11 @@ button .donation::after {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  margin: 2em 0;
   padding: 1em;
 }
 
 #mainContent #containerThree .form .extraInfo {
-  margin-bottom: 2em;
+  margin-bottom: 1em;
 }
 
 #mainContent #containerThree .form a {
@@ -178,7 +230,6 @@ button .donation::after {
 }
 
 #mainContent #containerThree .information {
-  background-color: #b8e5ff;
   border-radius: 10px;
   width: 95%;
 }
@@ -202,21 +253,5 @@ button .donation::after {
 
 #mainContent #containerThree .information ul li {
   margin: 1em 0;
-}
-
-h3 {
-  font-size: 1.25rem;
-  margin-bottom: 1em;
-  text-align: center;
-  text-decoration: underline;
-}
-
-.italic {
-  font-style: italic;
-}
-
-.mainText {
-  font-size: 1.125rem;
-  line-height: 2;
 }
 /*# sourceMappingURL=main.css.map */

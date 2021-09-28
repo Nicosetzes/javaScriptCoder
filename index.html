@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,18 +15,67 @@
         <span id="message">¿Querés donar al proyecto? Agradecemos el apoyo!</span>
     </div>
     <div id="mainContent">
-        <div id="containerTwo"></div>
+        <div id="containerTwo">
+            <p class="mainText">¡Bienvenidos a mi sitio! Mi nombre es Nicolás Setzes, y gusto de escribir acerca de distintas y variadas temáticas. Soy de Mar del Plata (Buenos Aires, Argentina) y tengo 27 años.</p>
+            <p class="mainText bold">Les invito a seleccionar una temática en particular y a leer el texto relacionado.</p>
+            <div id="labelContainer">
+                <label for="stories" class="selectTitle">Elija una temática:</label>
+                <select name="stories" id="selectStories" onchange="storyPick()">
+                    <option value="none">Seleccione...</option>
+                    <option value="sinEmbalar">Relaciones</option>
+                    <option value="dePaso">Nostalgia</option>
+                    <option value="nodos">Decisiones</option>
+                    <option value="licenciaTemporal">Conocer(te)</option>
+                    <option value="iutopia">Machismo</option>
+                    <option value="simulacro">Confinamiento</option>
+                    <option value="volarAlto">Libertad</option>
+                    <option value="allaArriba">Espíritus</option>
+                    <option value="fueraDeTiempo">Soledad</option>
+                    <option value="jardin">Competencia</option>
+                    <option value="laViola">Personaje</option>
+                    <option value="cuestionDeTiempo">Infancia</option>
+                </select>
+            </div>
+            <div id="storyText"></div>
+        </div>
         <div id="containerThree">
             <h3>Donaciones</h3>
             <div class="buttons">
-                <button onclick="shortStoryOne.specificDonation(shortStoryOne)">
+                <button onclick="sinEmbalar.specificDonation(sinEmbalar)">
+                    <span class="donation">Sin embalar</span>
+                </button>
+                <button onclick="dePaso.specificDonation(dePaso)">
                     <span class="donation">De paso</span>
                 </button>
-                <button onclick="shortStoryTwo.specificDonation(shortStoryTwo)">
+                <button onclick="nodos.specificDonation(nodos)">
+                    <span class="donation">Nodos</span>
+                </button>
+                <button onclick="licenciaTemporal.specificDonation(licenciaTemporal)">
+                    <span class="donation">Licencia temporal</span>
+                </button>
+                <button onclick="iutopia.specificDonation(iutopia)">
+                    <span class="donation">Iutopía</span>
+                </button>
+                <button onclick="simulacro.specificDonation(simulacro)">
+                    <span class="donation">Simulacro</span>
+                </button>
+                <button onclick="volarAlto.specificDonation(volarAlto)">
+                    <span class="donation">Volar alto</span>
+                </button>
+                <button onclick="allaArriba.specificDonation(allaArriba)">
+                    <span class="donation">Allá arriba</span>
+                </button>
+                <button onclick="fueraDeTiempo.specificDonation(fueraDeTiempo)">
+                    <span class="donation">Fuera de tiempo</span>
+                </button>
+                <button onclick="jardin.specificDonation(jardin)">
+                    <span class="donation">Jardín</span>
+                </button>
+                <button onclick="laViola.specificDonation(laViola)">
                     <span class="donation">La viola</span>
                 </button>
-                <button onclick="shortStoryThree.specificDonation(shortStoryThree)">
-                    <span class="donation">Fuera de tiempo</span>
+                <button onclick="cuestionDeTiempo.specificDonation(cuestionDeTiempo)">
+                    <span class="donation">Cuestión de tiempo</span>
                 </button>
             </div>
             <form id="form"></form>
@@ -37,6 +87,8 @@
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 </body>
+
 </html>

@@ -5,6 +5,26 @@
     list-style: none;
 }
 
+.bold {
+    font-weight: bold;
+}
+
+h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1em;
+    text-align: center;
+    text-decoration: underline;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.mainText {
+    font-size: 1.125rem;
+    line-height: 2;
+}
+
 button {
     background-color: #e2e0e7;
     border-radius: 10px;
@@ -36,7 +56,6 @@ button {
     background-color: rgb(160, 231, 224);
     display: flex;
     justify-content: center;
-    margin: 1em 1em;
     min-height: 100px;
     #message {
         align-items: center;
@@ -57,23 +76,33 @@ button {
 #mainContent {
     display: flex;
     flex-direction: row;
-    margin: 1em 1em;
+
     #containerTwo {
+        background-color:rgb(243, 226, 149);
         display: flex;
         flex-flow: column;
-        justify-content: center;
+        justify-content: flex-start;
         min-height: 100px;
-        max-width: 75%;
-        .articleOne {
+        padding: 2em 3em;
+        width: 70%;
+        #labelContainer {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            margin: 0 auto;
+            width: 40%;
+            .selectTitle {
+                font-size: 3rem;
+                margin: 1em auto 0.5em auto;
+            }
+            #selectStories {
+                font-size: 1.25rem;
+                margin: 0 auto;
+                width: 35%;
+            }
+        }
+        .shortStory {
             background-color: rgb(243, 226, 149);
-            padding: 2em 3em;
-        }
-        .articleTwo {
-            background-color: rgb(218, 213, 193);
-            padding: 2em 3em;
-        }
-        .articleThree {
-            background-color: rgb(212, 221, 201);
             padding: 2em 3em;
         }
     }
@@ -84,17 +113,26 @@ button {
         display: flex;
         flex-flow: column;
         justify-content: start;
-        width: 25%;
-        padding: 2em 1em;
+        width: 30%;
+        padding: 1em 1em 0 1em;
+        .buttons {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            width: 100%;
+            button {
+                display: inline-block;
+                width: 40%;
+            }
+        }
         .form {
             align-items: center;
             border: black 1px solid;
             display: flex;
             flex-direction: column;
-            margin: 2em 0;
             padding: 1em;
             .extraInfo {
-                margin-bottom: 2em;
+                margin-bottom: 1em;
             }
             a {
                 color: crimson;
@@ -114,7 +152,6 @@ button {
             }
         }
         .information {
-            background-color: rgb(184, 229, 255);
             border-radius: 10px;
             width: 95%;
             ul {
@@ -129,20 +166,4 @@ button {
             }
         }
     }
-}
-
-h3 {
-    font-size: 1.25rem;
-    margin-bottom: 1em;
-    text-align: center;
-    text-decoration: underline;
-}
-
-.italic {
-    font-style: italic;
-}
-
-.mainText {
-    font-size: 1.125rem;
-    line-height: 2;
 }
