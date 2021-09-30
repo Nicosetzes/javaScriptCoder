@@ -1,4 +1,6 @@
-*, ::after, ::before {
+*,
+::after,
+::before {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -25,30 +27,11 @@ h3 {
     line-height: 2;
 }
 
-button {
-    background-color: #e2e0e7;
-    border-radius: 10px;
-    display: flex;
-    margin: 1em auto;
-    padding: 1em 3em;
-    width: 80%;
-    .donation {
-        font-size: 1em;
-        position: relative;
-        &::after {
-            content: url(../media/cart.svg);
-            position: absolute;
-            right: -1.75em;
-            top: -0.2em; 
-        }
-    }
-}
-
 .columns {
     column-count: 3;
-	column-gap: 5em;
-	column-rule: 1px solid #ccc;
-	column-width: 350px;
+    column-gap: 5em;
+    column-rule: 1px solid #ccc;
+    column-width: 350px;
 }
 
 #containerOne {
@@ -78,35 +61,59 @@ button {
     flex-direction: row;
 
     #containerTwo {
-        background-color:rgb(243, 226, 149);
-        display: flex;
-        flex-flow: column;
-        justify-content: flex-start;
+        background-color: rgb(243, 226, 149);
         min-height: 100px;
         padding: 2em 3em;
         width: 70%;
         #labelContainer {
             display: flex;
-            flex-direction: column;
-            flex-wrap: wrap;
-            margin: 0 auto;
-            width: 40%;
-            .selectTitle {
-                font-size: 3rem;
-                margin: 1em auto 0.5em auto;
+            flex-direction: row;
+            .customizedSelect {
+                margin: 1em auto;
+                position: relative;
+                #selectStories {
+                    background-color: #b5a061;
+                    border: 0;
+                    color: #fff;
+                    font-size: 1.25rem;
+                    padding: 1em 3em 1em 1.25em;
+                }
+                .customizedArrow {
+                    background-color: #685b33;
+                    display: block;
+                    height: 100%;
+                    pointer-events: none;
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    width: 3rem;
+                    &::before,
+                    &::after {
+                        content: "";
+                        left: 50%;
+                        height: 0;
+                        position: absolute;
+                        transform: translate(-50%, -50%);
+                        width: 0;
+                        --size: 0.6em;
+                    }
+                    &::before {
+                        border-bottom: var(--size) solid rgba(255, 255, 255, 0.5);
+                        border-left: var(--size) solid transparent;
+                        border-right: var(--size) solid transparent;
+                        top: 40%;
+                    }
+                    &::after {
+                        border-left: var(--size) solid transparent;
+                        border-right: var(--size) solid transparent;
+                        border-top: var(--size) solid rgba(255, 255, 255, 0.5);
+                        top: 60%;
+                    }
+                }
             }
-            #selectStories {
-                font-size: 1.25rem;
-                margin: 0 auto;
-                width: 35%;
-            }
-        }
-        .shortStory {
-            background-color: rgb(243, 226, 149);
-            padding: 2em 3em;
         }
     }
-    
+
     #containerThree {
         align-items: center;
         background-color: #d9e5ee;
@@ -121,8 +128,23 @@ button {
             flex-wrap: wrap;
             width: 100%;
             button {
+                background-color: #685b33;
+                border-radius: 7.5px;
+                color: #fff;
                 display: inline-block;
+                margin: 1em auto;
+                padding: 1em 2.5em;
                 width: 40%;
+                .donation {
+                    font-size: 1em;
+                    position: relative;
+                    &::after {
+                        content: url(../media/cart.svg);
+                        position: absolute;
+                        right: -2em;
+                        top: -0.4em;
+                    }
+                }
             }
         }
         .form {
@@ -130,7 +152,7 @@ button {
             border: black 1px solid;
             display: flex;
             flex-direction: column;
-            padding: 1em;
+            padding: 0.5em;
             .extraInfo {
                 margin-bottom: 1em;
             }
@@ -141,7 +163,7 @@ button {
             p {
                 line-height: 1.5em;
                 margin: 0.5em 0;
-                text-align:center;
+                text-align: center;
             }
             #submitAndReset {
                 margin: 1em 0;

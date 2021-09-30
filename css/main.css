@@ -1,4 +1,6 @@
-*, ::after, ::before {
+*,
+::after,
+::before {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   margin: 0;
@@ -24,29 +26,6 @@ h3 {
 .mainText {
   font-size: 1.125rem;
   line-height: 2;
-}
-
-button {
-  background-color: #e2e0e7;
-  border-radius: 10px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  margin: 1em auto;
-  padding: 1em 3em;
-  width: 80%;
-}
-
-button .donation {
-  font-size: 1em;
-  position: relative;
-}
-
-button .donation::after {
-  content: url(../media/cart.svg);
-  position: absolute;
-  right: -1.75em;
-  top: -0.2em;
 }
 
 .columns {
@@ -108,16 +87,6 @@ button .donation::after {
 
 #mainContent #containerTwo {
   background-color: #f3e295;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-flow: column;
-          flex-flow: column;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
   min-height: 100px;
   padding: 2em 3em;
   width: 70%;
@@ -127,30 +96,59 @@ button .donation::after {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
+  -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  margin: 0 auto;
-  width: 40%;
+      -ms-flex-direction: row;
+          flex-direction: row;
 }
 
-#mainContent #containerTwo #labelContainer .selectTitle {
-  font-size: 3rem;
-  margin: 1em auto 0.5em auto;
+#mainContent #containerTwo #labelContainer .customizedSelect {
+  margin: 1em auto;
+  position: relative;
 }
 
-#mainContent #containerTwo #labelContainer #selectStories {
+#mainContent #containerTwo #labelContainer .customizedSelect #selectStories {
+  background-color: #b5a061;
+  border: 0;
+  color: #fff;
   font-size: 1.25rem;
-  margin: 0 auto;
-  width: 35%;
+  padding: 1em 3em 1em 1.25em;
 }
 
-#mainContent #containerTwo .shortStory {
-  background-color: #f3e295;
-  padding: 2em 3em;
+#mainContent #containerTwo #labelContainer .customizedSelect .customizedArrow {
+  background-color: #685b33;
+  display: block;
+  height: 100%;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 3rem;
+}
+
+#mainContent #containerTwo #labelContainer .customizedSelect .customizedArrow::before, #mainContent #containerTwo #labelContainer .customizedSelect .customizedArrow::after {
+  content: "";
+  left: 50%;
+  height: 0;
+  position: absolute;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 0;
+  --size: 0.6em;
+}
+
+#mainContent #containerTwo #labelContainer .customizedSelect .customizedArrow::before {
+  border-bottom: var(--size) solid rgba(255, 255, 255, 0.5);
+  border-left: var(--size) solid transparent;
+  border-right: var(--size) solid transparent;
+  top: 40%;
+}
+
+#mainContent #containerTwo #labelContainer .customizedSelect .customizedArrow::after {
+  border-left: var(--size) solid transparent;
+  border-right: var(--size) solid transparent;
+  border-top: var(--size) solid rgba(255, 255, 255, 0.5);
+  top: 60%;
 }
 
 #mainContent #containerThree {
@@ -186,8 +184,25 @@ button .donation::after {
 }
 
 #mainContent #containerThree .buttons button {
+  background-color: #685b33;
+  border-radius: 7.5px;
+  color: #fff;
   display: inline-block;
+  margin: 1em auto;
+  padding: 1em 2.5em;
   width: 40%;
+}
+
+#mainContent #containerThree .buttons button .donation {
+  font-size: 1em;
+  position: relative;
+}
+
+#mainContent #containerThree .buttons button .donation::after {
+  content: url(../media/cart.svg);
+  position: absolute;
+  right: -2em;
+  top: -0.4em;
 }
 
 #mainContent #containerThree .form {
@@ -202,7 +217,7 @@ button .donation::after {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  padding: 1em;
+  padding: 0.5em;
 }
 
 #mainContent #containerThree .form .extraInfo {

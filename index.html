@@ -16,25 +16,29 @@
     </div>
     <div id="mainContent">
         <div id="containerTwo">
-            <p class="mainText">¡Bienvenidos a mi sitio! Mi nombre es Nicolás Setzes, y gusto de escribir acerca de distintas y variadas temáticas. Soy de Mar del Plata (Buenos Aires, Argentina) y tengo 27 años.</p>
-            <p class="mainText bold">Les invito a seleccionar una temática en particular y a leer el texto relacionado.</p>
+            <p class="mainText">¡Bienvenidos a mi sitio! Mi nombre es Nicolás Setzes, y gusto de escribir acerca de
+                distintas y variadas temáticas. Soy de Mar del Plata (Buenos Aires, Argentina) y tengo 27 años.</p>
+            <p class="mainText bold">Les invito a seleccionar una temática en particular y a leer el texto relacionado.
+            </p>
             <div id="labelContainer">
-                <label for="stories" class="selectTitle">Elija una temática:</label>
-                <select name="stories" id="selectStories" onchange="storyPick()">
-                    <option value="none">Seleccione...</option>
-                    <option value="sinEmbalar">Relaciones</option>
-                    <option value="dePaso">Nostalgia</option>
-                    <option value="nodos">Decisiones</option>
-                    <option value="licenciaTemporal">Conocer(te)</option>
-                    <option value="iutopia">Machismo</option>
-                    <option value="simulacro">Confinamiento</option>
-                    <option value="volarAlto">Libertad</option>
-                    <option value="allaArriba">Espíritus</option>
-                    <option value="fueraDeTiempo">Soledad</option>
-                    <option value="jardin">Competencia</option>
-                    <option value="laViola">Personaje</option>
-                    <option value="cuestionDeTiempo">Infancia</option>
-                </select>
+                <div class="customizedSelect">
+                    <select name="stories" id="selectStories" onchange="storyPick()">
+                        <option value="none">Seleccione...</option>
+                        <option value="sinEmbalar">Relaciones</option>
+                        <option value="dePaso">Nostalgia</option>
+                        <option value="nodos">Decisiones</option>
+                        <option value="licenciaTemporal">Conocer(te)</option>
+                        <option value="iutopia">Machismo</option>
+                        <option value="simulacro">Confinamiento</option>
+                        <option value="volarAlto">Libertad</option>
+                        <option value="allaArriba">Espíritus</option>
+                        <option value="fueraDeTiempo">Soledad</option>
+                        <option value="jardin">Competencia</option>
+                        <option value="laViola">Personaje</option>
+                        <option value="cuestionDeTiempo">Infancia</option>
+                    </select>
+                    <span class="customizedArrow"></span>
+                </div>
             </div>
             <div id="storyText"></div>
         </div>

@@ -204,7 +204,7 @@ const licenciaTemporal = new Story("Licencia temporal", "licenciaTemporal", "Nic
                                                                                                             </div>
                                                                                                         </article>`)
 
-const iutopia = new Story("Iutopía", "iutopia", "Nicolás Setzes", 270, 2020, `<article class="shortStory">
+const iutopia = new Story("Iutopía", "iutopia", "Nicolás Setzes", 273, 2020, `<article class="shortStory">
                                                                                 <h3>Iutopía</h3>
                                                                                 <div class="columns">
 							                                                        <p class="mainText">Nunca falta el pez que dentro del cardumen nada en contra de la corriente, desoyendo los gritos de la inmensa mayoría. Un caso así fue el reportado en <span class="italic">Iutopía</span>, un pueblito rural de México que en el padrón consta de mil ochocientos habitantes en sus filas, pero no supera las setecientas almas en sus calles. </p>
