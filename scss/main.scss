@@ -185,7 +185,7 @@ h3 {
                 margin: 1em auto;
                 padding: 1em 2em;
                 transition: all 250ms ease-in-out;
-                width: 50%;
+                width: 40%;
                 &:hover {
                     background-color: #ccc;
                     color: #000;
@@ -195,6 +195,7 @@ h3 {
                     position: relative;
                     &::after {
                         content: url(../media/cart.svg);
+                        padding-right: 0.25em;
                         position: absolute;
                         right: -2em;
                         top: -0.4em;
@@ -208,6 +209,7 @@ h3 {
             border-radius: 5px;
             display: flex;
             flex-direction: column;
+            margin: 0 0 0.75em 0;
             padding: 0.5em;
             .extraInfo {
                 margin-bottom: 1em;
@@ -250,10 +252,13 @@ h3 {
         }
         .information {
             border-radius: 10px;
+            margin-bottom: 0.75em;
             width: 95%;
             ul {
                 align-items: flex-start;
                 background-color: #106147;
+                border: 0;
+                border-radius: 30px;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
@@ -263,6 +268,27 @@ h3 {
                     margin: 1em 0;
                 }
             }
+        }
+    }
+}
+
+footer {
+    align-items: center;
+    background-color: #98ad8b;
+    display: flex;
+    height: 15vh;
+    justify-content: center;
+    .contact {
+        align-items: center;
+        background-color: #ccc;
+        border: 0;
+        border-radius: 75px;
+        display: flex;
+        justify-content: center;
+        padding: 2em 3em;
+        img {
+            margin: 0 1em;
+            width: 2.5rem;
         }
     }
 }

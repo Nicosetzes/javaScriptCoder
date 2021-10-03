@@ -257,7 +257,7 @@ h3 {
   padding: 1em 2em;
   -webkit-transition: all 250ms ease-in-out;
   transition: all 250ms ease-in-out;
-  width: 50%;
+  width: 40%;
 }
 
 #mainContent #containerThree .buttons button:hover {
@@ -272,6 +272,7 @@ h3 {
 
 #mainContent #containerThree .buttons button .donation::after {
   content: url(../media/cart.svg);
+  padding-right: 0.25em;
   position: absolute;
   right: -2em;
   top: -0.4em;
@@ -290,6 +291,7 @@ h3 {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  margin: 0 0 0.75em 0;
   padding: 0.5em;
 }
 
@@ -347,6 +349,7 @@ h3 {
 
 #mainContent #containerThree .information {
   border-radius: 10px;
+  margin-bottom: 0.75em;
   width: 95%;
 }
 
@@ -355,6 +358,8 @@ h3 {
       -ms-flex-align: start;
           align-items: flex-start;
   background-color: #106147;
+  border: 0;
+  border-radius: 30px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -371,5 +376,40 @@ h3 {
 #mainContent #containerThree .information ul li {
   color: #fff;
   margin: 1em 0;
+}
+
+footer {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #98ad8b;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 15vh;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+footer .contact {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #ccc;
+  border: 0;
+  border-radius: 75px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 2em 3em;
+}
+
+footer .contact img {
+  margin: 0 1em;
+  width: 2.5rem;
 }
 /*# sourceMappingURL=main.css.map */

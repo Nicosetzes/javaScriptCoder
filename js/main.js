@@ -23,6 +23,8 @@ $("#users").append(`-`)  // Escribo el contenido de esa linea de HTML, el valor 
 
 let newMoney = []
 
+$("#total").append(`0`)  // Escribo el contenido de esa linea de HTML, el valor se irá actualizando en función de los usuarios que donan.
+
 // Chequeo el localStorage, en caso de haber algo en la memoria ya lo inyecto en el HTML (luego de reconvertirlo del formato JSON si es necesario).
 
 if (localStorage.donationsNumber != null) {
@@ -35,9 +37,9 @@ if (localStorage.donationsUsersList != null) {
     $("#users").html(donationsUsersList)
 }
 
-if (localStorage.newMoneyList != null) {
-    newMoneyList = JSON.parse(localStorage.newMoneyList)
-    $("#total").html(newMoneyList)
+if (localStorage.newMoney != null) {
+    newMoney = [Number(localStorage.newMoney)]
+    $("#total").html(newMoney)
 }
 
 // Creo la class Story, que la utilizo para generar mis objetos (en este caso, mis cuentos). 
@@ -160,9 +162,9 @@ payment = (user, amount) => {
 
                 $("#total").html(sum)
 
-                console.log(sum)
+                console.log(sum , typeof(sum))
 
-                // localStorage.newMoneyList = JSON.stringify(newMoney)
+                localStorage.newMoney = JSON.stringify(sum)
             }
         }
     })
