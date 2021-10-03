@@ -87,8 +87,35 @@
                 <ul>
                     <li>Cantidad de donaciones: <span id="sum"></span></li>
                     <li>Usuarios que donaron: <span id="users"></span></li>
+                    <li>Total recaudado: $<span id="total"></span></li>
                 </ul>
             </div>
+        </div>
+    </div>
+
+    <div id="modalContainerErrorUser" class="modalContainer">
+        <div class="modal">
+            <p>Por favor, ingrese un <span class="bold">nombre válido</span> y vuelva a intentarlo.</p>
+            <button id="errorUserClose" class="modalClose">Volver</button>
+        </div>
+    </div>
+
+    <div id="modalContainerErrorAmount" class="modalContainer">
+        <div class="modal">
+            <p>Por favor, ingrese un <span class="bold">monto válido</span> y vuelva a intentarlo.</p>
+            <button id="errorAmountClose" class="modalClose">Volver</button>
+        </div>
+    </div>
+
+    <div id="modalContainerSuccess" class="modalContainer">
+        <div class="modal">
+            <p>Esta es la información proporcionada:</p>
+            <p>Usuario: <span id="infoUser" class="bold"></span></p>
+            <p>Monto a abonar: <span id="infoAmount" class="bold"></span></p>
+            <p>Ingrese en el siguiente link para abonar por <span class="bold">Mercado Pago</span></p>
+            <img src="media/arrow.svg">
+            <p id="linkMercadoPago"></p>
+            <button id="successClose" class="modalClose">Volver</button>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"

@@ -34,9 +34,60 @@ h3 {
     column-width: 350px;
 }
 
+.modalContainer {
+    align-items: center;
+    background-color: grey;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    left: 0%;
+    opacity: 0;
+    pointer-events: none;
+    position: fixed;
+    top: 0%;
+    transition: opacity 100ms ease-in-out;
+    width: 100vw;
+    &.show {
+        pointer-events: auto;
+        opacity: 1;
+    }
+    .modal {
+        background-color: #fff;
+        border: #138a64 3px solid;
+        border-radius: 5px;
+        max-width: 40%;
+        padding: 1.5em 2.5em;
+        text-align: center;
+        p {
+            font-size: 1rem;
+            margin: 0 0 1em 0;
+            opacity: 0.8;
+            a {
+                color: #138a64;
+                font-size: 1.25rem;
+                font-style: italic;
+                font-weight: bold;
+                text-decoration: underline;
+            }
+        }
+        img {
+            margin: 0 0 0.75em 0;
+        }
+        button {
+            background-color: #138a64;
+            border: 0;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            margin: 0.5em 0 0 0;
+            padding: 1em 2em;        
+        }
+    }
+}
+
 #containerOne {
     align-items: center;
-    background-color: rgb(160, 231, 224);
+    background-color: #ccc;
     display: flex;
     justify-content: center;
     min-height: 100px;
@@ -59,12 +110,11 @@ h3 {
 #mainContent {
     display: flex;
     flex-direction: row;
-
     #containerTwo {
         background-color: rgb(243, 226, 149);
         min-height: 100px;
         padding: 2em 3em;
-        width: 70%;
+        width: 65%;
         #labelContainer {
             display: flex;
             flex-direction: row;
@@ -113,14 +163,13 @@ h3 {
             }
         }
     }
-
     #containerThree {
         align-items: center;
         background-color: #d9e5ee;
         display: flex;
         flex-flow: column;
         justify-content: start;
-        width: 30%;
+        width: 35%;
         padding: 1em 1em 0 1em;
         .buttons {
             display: flex;
@@ -128,13 +177,19 @@ h3 {
             flex-wrap: wrap;
             width: 100%;
             button {
-                background-color: #685b33;
+                background-color: #ac9655;
                 border-radius: 7.5px;
                 color: #fff;
+                cursor: pointer;
                 display: inline-block;
                 margin: 1em auto;
-                padding: 1em 2.5em;
-                width: 40%;
+                padding: 1em 2em;
+                transition: all 250ms ease-in-out;
+                width: 50%;
+                &:hover {
+                    background-color: #ccc;
+                    color: #000;
+                }
                 .donation {
                     font-size: 1em;
                     position: relative;
@@ -149,12 +204,23 @@ h3 {
         }
         .form {
             align-items: center;
-            border: black 1px solid;
+            border: #685b33 1px solid;
+            border-radius: 5px;
             display: flex;
             flex-direction: column;
             padding: 0.5em;
             .extraInfo {
                 margin-bottom: 1em;
+            }
+            input {
+                border: 0;
+                border-radius: 5px;
+                height: 1.25rem;
+                width: 35%;
+                &.invalid {
+                    border: #ff0f0f 2px solid;
+                    transition: border 750ms ease-in-out;
+                }
             }
             a {
                 color: crimson;
@@ -166,10 +232,19 @@ h3 {
                 text-align: center;
             }
             #submitAndReset {
+                align-items: center;
+                display: flex;
+                justify-content: center;
                 margin: 1em 0;
+                width: 100%;
                 input {
+                    background-color: #247a5f;
+                    border-radius: 5px;
+                    color: #fff;
+                    cursor: pointer;
+                    height: 2rem;
                     margin: 0 0.5em;
-                    padding: 0.5em 1em;
+                    width: 30%;
                 }
             }
         }
@@ -177,12 +252,14 @@ h3 {
             border-radius: 10px;
             width: 95%;
             ul {
-                align-items: center;
+                align-items: flex-start;
+                background-color: #106147;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
                 padding: 1em 0.5em;
                 li {
+                    color: #fff;
                     margin: 1em 0;
                 }
             }

@@ -3,9 +3,12 @@
 $("#message").fadeOut(2500, () => {
     $("#message").fadeIn(2500)
         .delay(2000)
-        .css("color", "blue")
-        .fadeOut(2500)
-        .fadeIn(2500)
+        .css("color", "#ac9655")
+        .css("font-weight", "bold")
+        .fadeOut(3000)
+        .fadeIn(3000)
+        .fadeOut(3000)
+        .fadeIn(3000)
 })
 
 // Declaración de arrays. Utilizo let para permitir que cambie su valor (debido al uso de localStorage)
@@ -18,6 +21,8 @@ let donationsUsersList = []  // Declaro un array vacío, con los usuarios que do
 
 $("#users").append(`-`)  // Escribo el contenido de esa linea de HTML, el valor se irá actualizando en función de los usuarios que donan.
 
+let newMoney = []
+
 // Chequeo el localStorage, en caso de haber algo en la memoria ya lo inyecto en el HTML (luego de reconvertirlo del formato JSON si es necesario).
 
 if (localStorage.donationsNumber != null) {
@@ -28,6 +33,11 @@ if (localStorage.donationsNumber != null) {
 if (localStorage.donationsUsersList != null) {
     donationsUsersList = JSON.parse(localStorage.donationsUsersList)
     $("#users").html(donationsUsersList)
+}
+
+if (localStorage.newMoneyList != null) {
+    newMoneyList = JSON.parse(localStorage.newMoneyList)
+    $("#total").html(newMoneyList)
 }
 
 // Creo la class Story, que la utilizo para generar mis objetos (en este caso, mis cuentos). 
@@ -49,7 +59,7 @@ class Story {
 
         document.getElementById("form").classList.add("form")
 
-        $("#form").html(`<div class="extraInfo">
+        document.getElementById("form").innerHTML = `<div class="extraInfo">
                                                         <p>El cuento seleccionado es <span class="italic">${story.title}</span>. Le proporcionamos información extra acerca del mismo:</p>
                                                         <p><b>Autor</b>: ${story.author}</p>
                                                         <p><b>Cantidad de palabras</b>: ${story.length}</p>
@@ -60,16 +70,15 @@ class Story {
                                                      <p>Actualmente, puede contribuir a través de la plataforma Mercado Pago.</p>
                                                      <p>Estimado usuario, ingrese la cantidad a donar. ¡Cualquier contribución es bienvenida!:</p>
                                                      <input id="amount" class="formItem" type="text">
-                                                     <div id="submitAndReset"><input type="reset"><input type="submit"></div>
-                                                     <p id="linkMercadoPago"></p>`)
+                                                     <div id="submitAndReset"><input type="reset"><input type="submit"></div>`
 
+        document.getElementById("form").scrollIntoView({ behavior: "smooth" });
     }
-
 }
 
 // Declaro una función llamada payment, que se ejecutará en la linea 148. Con esta función realizo la llamada AJAX e utilizo la api de mercadopago para generar un link de pago. 
 
-payment = (amount) => {
+payment = (user, amount) => {
 
     // Utilizo la api de Mercado Pago para procesar pagos en mis sitios (las donaciones)
 
@@ -117,42 +126,116 @@ payment = (amount) => {
 
             const donationLink = respuesta.init_point   // Guardo la propiedad init_point de la respuesta del POST en una constante llamada donationLink (es el link de mercadopago)
 
-            $("#linkMercadoPago").html(`<a href="${donationLink}" target="_blank">Presione aquí para abonar por Mercado Pago</a>`) // Lo hago aparecer en el html
+            modalContainerSuccess.classList.add("show")
+
+            document.getElementById("infoUser").innerHTML = user;
+
+            document.getElementById("infoAmount").innerHTML = `$${amount}`;
+
+            const linkMercadoPago = document.getElementById("linkMercadoPago")
+
+            linkMercadoPago.innerHTML = `<a href="${donationLink}" target="_blank">Donar</a>`
+
+            linkMercadoPago.onclick = () => {
+
+                donationsNumber.push(user)  // Agrego el valor del form (user) al array donationsNumber.
+
+                localStorage.donationsNumber = JSON.stringify(donationsNumber) // Defino un elemento dentro del localStorage, que será el array donationsNumber pero parseado.
+
+                $("#sum").html(donationsNumber.length)  // Inyecto en el HTML la cantidad de donaciones.
+
+                let donationsUsersList = donationsNumber.join(`, `) // Convierto el array donationsUsersList a string y separo sus elementos por una coma y un espacio. Representará los users que donaron.
+
+                localStorage.donationsUsersList = JSON.stringify(donationsUsersList) // Defino un elemento dentro del localStorage, que será el array donationsUsersList pero parseado.
+
+                $("#users").html(donationsUsersList)  // Lo inyecto en el HTML
+
+                newMoney.push(amount)
+
+                let sum = 0;
+
+                for (let i = 0; i < newMoney.length; i++) {
+                    sum += newMoney[i]
+                }
+
+                $("#total").html(sum)
+
+                console.log(sum)
+
+                // localStorage.newMoneyList = JSON.stringify(newMoney)
+            }
         }
     })
 }
 
+// Defino las const necesarias para la funcionalidad de las ventanas modales del form
+
+const modalContainerErrorUser = document.getElementById("modalContainerErrorUser")
+
+const modalContainerErrorAmount = document.getElementById("modalContainerErrorAmount")
+
+const modalContainerSuccess = document.getElementById("modalContainerSuccess")
+
+// const allModals = document.getElementsByClassName("modalContainer")
+
+const errorUserClose = document.getElementById("errorUserClose")
+
+const errorAmountClose = document.getElementById("errorAmountClose")
+
+const successClose = document.getElementById("successClose")
+
+errorUserClose.onclick = () => {
+    modalContainerErrorUser.classList.remove("show")
+}
+
+errorAmountClose.onclick = () => {
+    modalContainerErrorAmount.classList.remove("show")
+}
+
+successClose.onclick = () => {
+    modalContainerSuccess.classList.remove("show")
+}
+
 // Ahora toca escribir el Js correspondiente al evento asociado al envío del formulario (y su función callback)
 
-let myForm = $("#form") // Accedo medianto DOM al formulario y lo guardo en la variable myForm
-// TODO: que los valores no se guarden cuando sean un campo vacío. Agregar clase para indicar el error y prevenir que se envíe el formulario.
-myForm.on("submit", function sendForm(event) {
+let myForm = document.getElementById("form") // Accedo medianto DOM al formulario y lo guardo en la variable myForm
+
+myForm.onsubmit = function sendForm(event) {
 
     event.preventDefault(); // Evito que al enviar el form este se comporte por defecto, osea que recargue la página.
 
-    let user = $("#name").val()  // Almaceno el valor del input name dentro de una variable llamada user. Utilizo el método .val() de Jquery
+    document.getElementById("name").classList.remove("invalid")
+    document.getElementById("amount").classList.remove("invalid")
 
-    donationsNumber.push(user)  // Agrego el valor del form (user) al array donationsNumber.
+    const user = document.getElementById("name").value // Almaceno el valor del input name dentro de una variable llamada user.
 
-    localStorage.donationsNumber = JSON.stringify(donationsNumber) // Defino un elemento dentro del localStorage, que será el array donationsNumber pero parseado.
+    const value = Number(document.getElementById("amount").value); // Almaceno el valor del input amount dentro de una variable llamada value. 
 
-    $("#sum").html(donationsNumber.length)  // Inyecto en el HTML la cantidad de donaciones.
+    if (user === "" || isNaN(user) === false) {
+        document.getElementById("name").classList.add("invalid")
+        modalContainerErrorUser.classList.add("show")
+    }
+    else if (value === 0 || isNaN(value) === true) {
+        document.getElementById("name").classList.remove("invalid")
+        document.getElementById("amount").classList.add("invalid")
+        modalContainerErrorAmount.classList.add("show")
+    }
+    else {
+        document.getElementById("amount").classList.remove("invalid")
+        payment(user, value) // Ejecuto la función payment(), a la que le paso como parámetro tanto el user como el value obtenidos.
+    }
+}
 
-    let donationsUsersList = donationsNumber.join(`, `) // Convierto el array donationsUsersList a string y separo sus elementos por una coma y un espacio. Representará los users que donaron.
+// Utilizo el evento onreset para eliminar las clases "invalid" al resetear el form!
 
-    localStorage.donationsUsersList = JSON.stringify(donationsUsersList) // Defino un elemento dentro del localStorage, que será el array donationsUsersList pero parseado.
-
-    $("#users").html(donationsUsersList)  // Lo inyecto en el HTML
-
-    let value = Number($("#amount").val()); // Almaceno el valor del input amount dentro de una variable llamada value. Utilizo el método .val() de Jquery
-
-    payment(value) // Ejecuto la función payment(), a la que le paso como parámetro el value obtenido en la linea anterior (monto a donar por el usuario).
-
-})
+myForm.onreset = () => {
+    document.getElementById("name").classList.remove("invalid")
+    document.getElementById("amount").classList.remove("invalid")
+}
 
 // Creo mis objetos, que son mis cuentos. Defino propiedades como su título, autor, cantidad de palabras y año de realización.
 
-const sinEmbalar = new Story("Sin Embalar", "sinEmbalar", "Nicolás Setzes", 270, 2020,    `<article class="shortStory">
+const sinEmbalar = new Story("Sin Embalar", "sinEmbalar", "Nicolás Setzes", 270, 2020, `<article class="shortStory">
                                                                                                 <h3>Sin embalar</h3>
                                                                                                 <div class="columns">
                                                                                                     <p class="mainText">Te reconozco que nunca te vi como un ser de fundamentos, una persona que se sentara a contar ladrillos y estudiar la geometría que resulta, esto implica que podía maravillarte con un esfuerzo más bien mínimo, pero certero. Existen técnicas de todo tipo, más aun si la intención es solo impresionar al prójimo, a la compañía. Era la mejor manera de empezar mí día, contemplando el afecto que venía de tu admiración. El ritual era sagrado e inamovible: aun puedo sentir el olor a café –y de mi ya clásico té de limón–, las pantuflas y las cortinas corridas –por si pintaba–.</p>
@@ -176,7 +259,7 @@ const dePaso = new Story("De paso", "dePaso", "Nicolás Setzes", 417, 2020, `<ar
                                                                                     <p class="mainText">Mi madre sigue sin aparecer. ¿Dónde está mamá? Mi padre ahora está acostado en algún lugar, y siento que lo tengo que visitar. Aprovecho que mis brazos son más largos ahora y apoyo la taza de café en la mesita. Desconozco si alguna vez me acostumbraré al sabor, pero ayuda a mantenerse despierto. </p>
                                                                                 </div>
                                                                             </article>`)
-                                                                    
+
 const nodos = new Story("Nodos", "nodos", "Nicolás Setzes", 1307, 2021, `<article class="shortStory"">
                                                                             <h3>Nodos</h3>
                                                                             <div class="columns">
@@ -195,7 +278,7 @@ const nodos = new Story("Nodos", "nodos", "Nicolás Setzes", 1307, 2021, `<artic
                                                                             </div>
                                                                         </article>`)
 
-const licenciaTemporal = new Story("Licencia temporal", "licenciaTemporal", "Nicolás Setzes", 132, 2016,  `<article class="shortStory">
+const licenciaTemporal = new Story("Licencia temporal", "licenciaTemporal", "Nicolás Setzes", 132, 2016, `<article class="shortStory">
                                                                                                             <h3>Licencia temporal</h3>
                                                                                                             <div class="columns">
                                                                                                                 <p class="mainText">La versión que alcancé a mis allegados era que le llevó solo un minuto de su tiempo. En la oficial, le bastaba con solo quince segundos. En la real, dos eran más que suficientes.</p>
@@ -228,7 +311,7 @@ const simulacro = new Story("Simulacro", "simulacro", "Nicolás Setzes", 646, 20
                                                                                         </div>
                                                                                     </article>`)
 
-const volarAlto = new Story("Volar alto", "volarAlto", "Nicolás Setzes", 455, 2020,  `<article class="shortStory">
+const volarAlto = new Story("Volar alto", "volarAlto", "Nicolás Setzes", 455, 2020, `<article class="shortStory">
                                                                                         <h3>Volar alto</h3>
                                                                                         <div class="columns">
 							                                                                <p class="mainText">Luces. <span class="italic">Pink Floyd</span>. Un libro de <span class="italic">Murakami</span>, <span class="italic">Tokyo blues</span>. La ventana permanece abierta. Me invita, me seduce hablando  el idioma que compartimos, un dialecto sin palabras. Estoy a punto de soñar. Abandono el libro en la 291, lo dejo boca arriba en mi cama —me gusta la fotografía— y me incorporo, despacio, sin hacer ruido. Debo culpar a <span class="italic">Meddle</span> por el estado de transición que me domina, en especial a su súper famoso <span class="italic">b-side</span>. En cámara lenta, cumplo con el cometido y asomo la cabeza. Un viento que no es brisa, que es valiente, me despeina con violencia. Se lleva algunos temores, una parte de lo que soñaba hace rato cuando yacía medio muerto sobre el colchón, sin sábanas —nunca con sábanas— porque en verano hace calor y el metabolismo hace de las suyas con mi cuerpo, siempre.</p>
@@ -246,7 +329,7 @@ const volarAlto = new Story("Volar alto", "volarAlto", "Nicolás Setzes", 455, 2
 						                                                                </div>
                                                                                     </article>`)
 
-const allaArriba = new Story("Allá arriba", "allaArriba", "Nicolás Setzes", 600, 2020,    `<article class="shortStory">
+const allaArriba = new Story("Allá arriba", "allaArriba", "Nicolás Setzes", 600, 2020, `<article class="shortStory">
                                                                                             <h3>Allá arriba</h3>
                                                                                             <div class="columns">
 							                                                                    <p class="mainText italic">“La tierra que nos han dado está allá arriba”</p>
@@ -297,7 +380,7 @@ const laViola = new Story("La viola", "laViola", "Nicolás Setzes", 238, 2014, `
                                                                                     </div>
                                                                                 </article>`)
 
-const cuestionDeTiempo = new Story("Cuestión de tiempo", "cuestionDeTiempo", "Nicolás Setzes", 921, 2017,   `<article class="shortStory">
+const cuestionDeTiempo = new Story("Cuestión de tiempo", "cuestionDeTiempo", "Nicolás Setzes", 921, 2017, `<article class="shortStory">
                                                                                                                 <h3>Cuestión de tiempo</h3>
                                                                                                                 <div class="columns">
                                                                                                                     <p class="mainText">La mirada de mi mamá es idéntica a la mía. Unos días atrás mi tío —su hermano— me explicó la razón. Usó palabras que no conocía, como “genética” y “herencia”. Creo que sabe mucho debido a su profesión. Es maestro. Para variar, mamá tenía razón: ellos saben todo. Cuando crezca, quiero convertirme en maestra y saber tanto como él. Al comentarles de mi plan, su respuesta fue “hay que estudiar mucho Mili”. Aun así, no me importa. Quiero saber cómo funcionan las cosas. El por qué detrás de las ventanas, cómo dejan pasar la luz. Por qué cuando me duermo, despierto. Por qué la mirada de mi mamá es como la mía. Ah, sí, lo había olvidado. La mirada de mi mamá es como la mía. O la mía como la suya. Aun así, de a ratos se dan diferencias. Mi mamá a veces llora. Cada vez con más frecuencia. Solo puedo pensar en por qué se encuentra tan triste en estos últimos días. </p>
@@ -313,14 +396,15 @@ const shortStories = [sinEmbalar, dePaso, nodos, licenciaTemporal, iutopia, simu
 
 const showStory = (pick) => {
     const filtered = shortStories.filter(a => a.value === pick)
-    $("#storyText").html(filtered[0].text)
+    document.getElementById("storyText").innerHTML = filtered[0].text
+    document.getElementById("storyText").scrollIntoView({ behavior: "smooth" });
 }
 
 // Declaro la función callback que me permitirá 1) reconocer la temática escogida por el user y 2) ejecutar la función showStory()
 
 const storyPick = () => {
     let pick = document.getElementById('selectStories').value
-    showStory (pick)
+    showStory(pick)
 }
 
 
