@@ -1,5 +1,3 @@
-// Incorporo animaciones. Pruebo a realizarlas sobre el ID message:
-
 $("#message").fadeOut(2500, () => {
     $("#message").fadeIn(2500)
         .delay(2000)
@@ -11,21 +9,21 @@ $("#message").fadeOut(2500, () => {
         .fadeIn(3000)
 })
 
-// Declaración de arrays. Utilizo let para permitir que cambie su valor (debido al uso de localStorage)
+// Declaración de arrays. Utilizo let para permitir que cambie su asignación (debido al uso de localStorage)
 
-let donationsNumber = []  // Declaro un array vacío, con la cantidad de donaciones.
+let donationsNumber = []  
 
-$("#sum").append(`0`)  // Escribo el contenido de esa linea de HTML, el valor se irá actualizando en función de la cantidad de donaciones.
+$("#sum").append(`0`) 
 
-let donationsUsersList = []  // Declaro un array vacío, con los usuarios que donaron.
+let donationsUsersList = []  
 
-$("#users").append(`-`)  // Escribo el contenido de esa linea de HTML, el valor se irá actualizando en función de los usuarios que donan.
+$("#users").append(`-`) 
 
 let newMoney = []
 
-$("#total").append(`0`)  // Escribo el contenido de esa linea de HTML, el valor se irá actualizando en función de los usuarios que donan.
+$("#total").append(`0`) 
 
-// Chequeo el localStorage, en caso de haber algo en la memoria ya lo inyecto en el HTML (luego de reconvertirlo del formato JSON si es necesario).
+// Chequeo el localStorage, en caso de haber algo en la memoria ya lo inyecto en el HTML.
 
 if (localStorage.donationsNumber != null) {
     donationsNumber = JSON.parse(localStorage.donationsNumber)
@@ -42,9 +40,7 @@ if (localStorage.newMoney != null) {
     $("#total").html(newMoney)
 }
 
-// Creo la class Story, que la utilizo para generar mis objetos (en este caso, mis cuentos). 
-
-// También le defino un método, que permite la donación específica para cada cuento.
+// Creo la class Story, que la utilizo para generar mis objeto. También le defino un método, que permite la donación específica para cada cuento.
 
 class Story {
 
@@ -78,22 +74,18 @@ class Story {
     }
 }
 
-// Declaro una función llamada payment, que se ejecutará en la linea 148. Con esta función realizo la llamada AJAX e utilizo la api de mercadopago para generar un link de pago. 
+// Declaro una función que permite realizar la llamada AJAX e utilizae la api de mercadopago para generar un link de pago. 
 
 payment = (user, amount) => {
-
-    // Utilizo la api de Mercado Pago para procesar pagos en mis sitios (las donaciones)
-
-    // Primero, defino una constante llamada donation, que será un objeto. Ella contendrá el valor de la donación (en su propiedad price).
 
     const donation = {
         quantity: 1,
         price: amount
     }
 
-    const donationList = [donation];   // Luego creo un array llamado donationList, que contendrá el objeto donation.
+    const donationList = [donation]; 
 
-    // Utilizo el método de array .map() para recorrer el array y retornar las propiedades requeridas por mercadopago. Me aseguro de que price y quantity estén presentes.
+    // Utilizo el método de array .map() para recorrer el array y retornar las propiedades requeridas por mercadopago.
 
     const mercadoPagoDonations = donationList.map(x => {
         return {
@@ -107,11 +99,9 @@ payment = (user, amount) => {
         }
     })
 
-    // Guardo en una constante la donación a realizar:
-
     const element = { "items": mercadoPagoDonations }
 
-    // Declaro los headers de la llamada AJAX en formato Jquery.
+    // Declaro los headers de la llamada AJAX y realizo la llamada POST en formato Jquery.
 
     $.ajaxSetup({
         headers: {
@@ -120,15 +110,13 @@ payment = (user, amount) => {
         }
     });
 
-    // Realizo la llamada POST en formato Jquery.
-
     $.post("https://api.mercadopago.com/checkout/preferences", JSON.stringify(element), (respuesta, status) => {
 
         if (status === "success") {
 
             const donationLink = respuesta.init_point   // Guardo la propiedad init_point de la respuesta del POST en una constante llamada donationLink (es el link de mercadopago)
 
-            modalContainerSuccess.classList.add("show")
+            modalContainerSuccess.classList.add("show") 
 
             document.getElementById("infoUser").innerHTML = user;
 
@@ -138,19 +126,21 @@ payment = (user, amount) => {
 
             linkMercadoPago.innerHTML = `<a href="${donationLink}" target="_blank">Donar</a>`
 
+            // Defino un evento onclick en linkMercadoPago. Mediante su callback almaceno info importante el LSt.
+
             linkMercadoPago.onclick = () => {
 
-                donationsNumber.push(user)  // Agrego el valor del form (user) al array donationsNumber.
+                donationsNumber.push(user)  
 
-                localStorage.donationsNumber = JSON.stringify(donationsNumber) // Defino un elemento dentro del localStorage, que será el array donationsNumber pero parseado.
+                localStorage.donationsNumber = JSON.stringify(donationsNumber) 
 
-                $("#sum").html(donationsNumber.length)  // Inyecto en el HTML la cantidad de donaciones.
+                $("#sum").html(donationsNumber.length)  
 
-                let donationsUsersList = donationsNumber.join(`, `) // Convierto el array donationsUsersList a string y separo sus elementos por una coma y un espacio. Representará los users que donaron.
+                let donationsUsersList = donationsNumber.join(`, `) // Convierto el array donationsUsersList a string y separo sus elementos por una coma y un espacio.
 
-                localStorage.donationsUsersList = JSON.stringify(donationsUsersList) // Defino un elemento dentro del localStorage, que será el array donationsUsersList pero parseado.
+                localStorage.donationsUsersList = JSON.stringify(donationsUsersList) 
 
-                $("#users").html(donationsUsersList)  // Lo inyecto en el HTML
+                $("#users").html(donationsUsersList)  
 
                 newMoney.push(amount)
 
@@ -161,8 +151,6 @@ payment = (user, amount) => {
                 }
 
                 $("#total").html(sum)
-
-                console.log(sum , typeof(sum))
 
                 localStorage.newMoney = JSON.stringify(sum)
             }
@@ -177,8 +165,6 @@ const modalContainerErrorUser = document.getElementById("modalContainerErrorUser
 const modalContainerErrorAmount = document.getElementById("modalContainerErrorAmount")
 
 const modalContainerSuccess = document.getElementById("modalContainerSuccess")
-
-// const allModals = document.getElementsByClassName("modalContainer")
 
 const errorUserClose = document.getElementById("errorUserClose")
 
@@ -198,9 +184,9 @@ successClose.onclick = () => {
     modalContainerSuccess.classList.remove("show")
 }
 
-// Ahora toca escribir el Js correspondiente al evento asociado al envío del formulario (y su función callback)
+// Declaro un evento onsubmit para el formulario y defino su callback, en el que habrá 1)validaciones, 2)obtención de datos del usuario y 3)ejecución de la función payment (linea 79).
 
-let myForm = document.getElementById("form") // Accedo medianto DOM al formulario y lo guardo en la variable myForm
+let myForm = document.getElementById("form") 
 
 myForm.onsubmit = function sendForm(event) {
 
@@ -209,9 +195,9 @@ myForm.onsubmit = function sendForm(event) {
     document.getElementById("name").classList.remove("invalid")
     document.getElementById("amount").classList.remove("invalid")
 
-    const user = document.getElementById("name").value // Almaceno el valor del input name dentro de una variable llamada user.
+    const user = document.getElementById("name").value 
 
-    const value = Number(document.getElementById("amount").value); // Almaceno el valor del input amount dentro de una variable llamada value. 
+    const value = Number(document.getElementById("amount").value);
 
     if (user === "" || isNaN(user) === false) {
         document.getElementById("name").classList.add("invalid")
@@ -235,7 +221,7 @@ myForm.onreset = () => {
     document.getElementById("amount").classList.remove("invalid")
 }
 
-// Creo mis objetos, que son mis cuentos. Defino propiedades como su título, autor, cantidad de palabras y año de realización.
+// Creo mis objetos. 
 
 const sinEmbalar = new Story("Sin Embalar", "sinEmbalar", "Nicolás Setzes", 270, 2020, `<article class="shortStory">
                                                                                                 <h3>Sin embalar</h3>
@@ -392,7 +378,7 @@ const cuestionDeTiempo = new Story("Cuestión de tiempo", "cuestionDeTiempo", "N
 						                                                                                        </div>
                                                                                                             </article>`)
 
-const shortStories = [sinEmbalar, dePaso, nodos, licenciaTemporal, iutopia, simulacro, volarAlto, allaArriba, fueraDeTiempo, jardin, laViola, cuestionDeTiempo]  // Defino un array que contendrá los cuentos (stories) completos
+const shortStories = [sinEmbalar, dePaso, nodos, licenciaTemporal, iutopia, simulacro, volarAlto, allaArriba, fueraDeTiempo, jardin, laViola, cuestionDeTiempo] 
 
 // Declaro una función que me permitirá mostrar un cuento según la temática escogida por el usuario:
 
@@ -408,5 +394,3 @@ const storyPick = () => {
     let pick = document.getElementById('selectStories').value
     showStory(pick)
 }
-
-
