@@ -185,7 +185,7 @@ h3 {
                 margin: 1em auto;
                 padding: 1em 2em;
                 transition: all 250ms ease-in-out;
-                width: 40%;
+                width: 50%;
                 &:hover {
                     background-color: #ccc;
                     color: #000;
@@ -276,7 +276,7 @@ footer {
     align-items: center;
     background-color: #98ad8b;
     display: flex;
-    height: 15vh;
+    height: 200px;
     justify-content: center;
     .contact {
         align-items: center;

@@ -257,7 +257,7 @@ h3 {
   padding: 1em 2em;
   -webkit-transition: all 250ms ease-in-out;
   transition: all 250ms ease-in-out;
-  width: 40%;
+  width: 50%;
 }
 
 #mainContent #containerThree .buttons button:hover {
@@ -386,7 +386,7 @@ footer {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  height: 15vh;
+  height: 200px;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
